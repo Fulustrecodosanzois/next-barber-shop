@@ -9,10 +9,16 @@ import { Avatar } from "./_components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
+import Footer from "./_components/footer";
 
 const Home = async () => {
    // chamar banco
    const barbershops = await db.barbershop.findMany({})
+   const popularBarbershop = await db.barbershop.findMany({
+      orderBy: {
+         name: "desc"
+      }
+   })
 
    return (
       <div>
@@ -26,13 +32,89 @@ const Home = async () => {
             <h2 className="text-xl font-bold">Olá, Fulustreco</h2>
             <p>Quarta-Feira, 14 de Agosto</p>
 
-            {/* BARRA DE PESQUISA */}
+            {/* BUSCA */}
 
             <div className="gap-2 mt-6 flex items-center">
                <Input placeholder="Busque Aqui..." />
                <Button>
                   <SearchIcon />
                </Button>
+
+            </div>
+
+            {/* BUSCA RÁPIDA */}
+
+            <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+               <Button className="gap-2" variant="secondary">
+                  <Image
+                     src="/cabelo.svg"
+                     width={16}
+                     height={16}
+                     alt="cabelo"
+                  />
+                  Cabelo
+               </Button>
+
+               <Button className="gap-2" variant="secondary">
+                  <Image
+                     src="/barba.svg"
+                     width={16}
+                     height={16}
+                     alt="barba"
+                  />
+                  Barba
+               </Button>
+
+               <Button className="gap-2" variant="secondary">
+                  <Image
+                     src="/acabamento.svg"
+                     width={16}
+                     height={16}
+                     alt="acabamento"
+                  />
+                  Acabamento
+               </Button>
+
+               <Button className="gap-2" variant="secondary">
+                  <Image
+                     src="/massagem.svg"
+                     width={16}
+                     height={16}
+                     alt="massagem"
+                  />
+                  Massagem
+               </Button>
+
+               <Button className="gap-2" variant="secondary">
+                  <Image
+                     src="/sobramcelha.svg"
+                     width={16}
+                     height={16}
+                     alt="sobrancelha"
+                  />
+                  Sobrancelha
+               </Button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
@@ -90,7 +172,26 @@ const Home = async () => {
                   <BarbershopItem key={barbershop.id} barbershop={barbershop} />
                ))}
             </div>
+
+            {/* POPULARES */}
+
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+               POPULARES
+            </h2>
+
+            <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+               {popularBarbershop.map((barbershop) => (
+                  <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+               ))}
+            </div>
+
          </div>
+
+         {/* FOOTER */}
+
+         <Footer />
+
+
       </div>
 
 
