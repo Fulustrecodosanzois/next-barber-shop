@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -10,7 +10,7 @@ async function seedDatabase() {
       "https://utfs.io/f/5832df58-cfd7-4b3f-b102-42b7e150ced2-16r.png",
       "https://utfs.io/f/7e309eaa-d722-465b-b8b6-76217404a3d3-16s.png",
       "https://utfs.io/f/178da6b6-6f9a-424a-be9d-a2feb476eb36-16t.png",
-      "https://utfs.io/f/2f9278ba-3975-4026-af46-64af78864494-16u.png",
+      "https://ut fs.io/f/2f9278ba-3975-4026-af46-64af78864494-16u.png",
       "https://utfs.io/f/988646ea-dcb6-4f47-8a03-8d4586b7bc21-16v.png",
       "https://utfs.io/f/60f24f5c-9ed3-40ba-8c92-0cd1dcd043f9-16w.png",
       "https://utfs.io/f/f64f1bd4-59ce-4ee3-972d-2399937eeafc-16x.png",
