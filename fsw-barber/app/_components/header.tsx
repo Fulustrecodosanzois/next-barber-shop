@@ -4,12 +4,15 @@ import { Sheet, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
 import SidebarSheet from "./sidebar-sheet";
+import Link from "next/link";
 
 const Header = () => {
     return (
         <Card>
             <CardContent className="justify-between flex flex-row items-center p-5">
-                <Image src="/logo.png" alt="FSW Barber" width={120} height={18} />
+                <Link href="/">
+                    <Image src="/logo.png" alt="FSW Barber" width={120} height={18} />
+                </Link>
 
                 <Sheet>
                     <SheetTrigger asChild>
@@ -17,7 +20,7 @@ const Header = () => {
                             <MenuIcon />
                         </Button>
                     </SheetTrigger>
-                    <SidebarSheet/>
+                    <SidebarSheet />
                 </Sheet>
             </CardContent>
         </Card>

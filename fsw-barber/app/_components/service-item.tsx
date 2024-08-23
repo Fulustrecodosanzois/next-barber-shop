@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { BarbershopService } from "@prisma/client";
 import { Button } from "./ui/button";
-import { Currency } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 
 interface ServiceItemProps {
@@ -40,7 +39,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                             }).format(Number(service.price))}
                         </p>
 
-                        <Button variant="secondary" size="">
+                        <Button variant="secondary">
                             Reservar
                         </Button>
                     </div>
