@@ -7,7 +7,7 @@ import { quickSearchOptions } from "../_constants/search";
 import Image from "next/image";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import SignInDialog from "./sign-in-dialog";
 
@@ -15,7 +15,6 @@ import SignInDialog from "./sign-in-dialog";
 const SidebarSheet = () => {
     const { data } = useSession()
 
-    const handleLoginWhithGoogleClick = () => signIn("google")
     const handleLogoutClick = () => signOut()
 
     return (
