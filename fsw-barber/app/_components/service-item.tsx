@@ -52,6 +52,7 @@ const getTimeList = (bookings: Booking[]) => {
         const hour = Number(time.split(":")[0])
         const minutes = Number(time.split(":")[1])
 
+
         const hasBookingOnCorrentTime = bookings.some(
             (booking) =>
                 booking.date.getHours() === hour &&
@@ -293,9 +294,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                 </CardContent>
             </Card>
 
-            <Dialog 
-            open={SignInDialogIsOpen} 
-            onOpenChange={(open) => setSignInDialogIsOpen(open)}>
+            <Dialog
+                open={SignInDialogIsOpen}
+                onOpenChange={(open) => setSignInDialogIsOpen(open)}>
                 <DialogContent className="w-[90%]">
                     <SignInDialog />
                 </DialogContent>
