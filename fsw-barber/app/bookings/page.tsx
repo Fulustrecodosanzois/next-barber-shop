@@ -4,7 +4,6 @@ import { db } from "../_lib/prisma";
 import { authOptions } from "../_lib/auth";
 import { notFound } from "next/navigation";
 import BookingItem from "../_components/booking-item";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../_components/ui/accordion";
 
 const bookings = async () => {
     const session = await getServerSession(authOptions)
@@ -68,42 +67,32 @@ const bookings = async () => {
 
                 {/* Confirmados */}
 
-                <Accordion type="single" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger><h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-                            Confirmados
-                        </h2>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                            {confirmedBookings.map(booking =>
-                                <BookingItem
-                                    key={booking.id}
-                                    booking={booking}
-                                />
-                            )}
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
+                <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+                    Confirmados
+                </h2>
+
+                {confirmedBookings.map(booking =>
+                    <BookingItem
+                        key={booking.id}
+                        booking={booking}
+                    />
+                )}
+
+
 
 
                 {/* Finalizados */}
 
-                <Accordion type="single" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger><h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-                            Finalizados
-                        </h2>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                            {concludedBookings.map(booking =>
-                                <BookingItem
-                                    key={booking.id}
-                                    booking={booking}
-                                />
-                            )}
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
+                <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+                    Finalizados
+                </h2>
+
+                {concludedBookings.map(booking =>
+                    <BookingItem
+                        key={booking.id}
+                        booking={booking}
+                    />
+                )}
 
             </div>
         </>
