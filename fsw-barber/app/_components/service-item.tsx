@@ -7,8 +7,8 @@ import { Card, CardContent } from "./ui/card";
 import { SheetContent, SheetHeader, SheetTitle, Sheet, SheetFooter } from "./ui/sheet";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
-import { useEffect, useState } from "react";
-import { format, set } from "date-fns";
+import { useEffect, useMemo, useState } from "react";
+import { format, isPast, isToday, set } from "date-fns";
 import { useSession } from "next-auth/react";
 import { createBookings } from "../_action/create-bookings";
 import { toast } from "sonner";
@@ -46,11 +46,22 @@ const TIME_LIST = [
     "18:00",
 ]
 
-const getTimeList = (bookings: Booking[]) => {
+interface GetTimeListProps {
+    bookings: Booking[]
+    selectedDay: Date
+}
+
+const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
     return TIME_LIST.filter((time) => {
         // ["09", "00"]
         const hour = Number(time.split(":")[0])
         const minutes = Number(time.split(":")[1])
+
+        const timeIsOnThePast = isPast(set(new Date(), { hours: hour, minutes }))
+        if (timeIsOnThePast && isToday(selectedDay)) {
+            return (false)
+        }
+
 
 
         const hasBookingOnCorrentTime = bookings.some(
@@ -138,7 +149,13 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         }
     }
 
-
+    const timeList = useMemo(() => {
+        if (!selectedDay) return []
+        return getTimeList({
+            bookings: dayBookings,
+            selectedDay,
+        })
+    }, [dayBookings, selectedDay])
 
 
     return (
@@ -226,7 +243,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                                     {selectedDay && (
                                         <div className="px-5 gap-3 border-b border-solid flex overflow-x-auto p-5 [&::-webkit-scrollbar]:hidden">
-                                            {getTimeList(dayBookings).map((time) => (
+                                            {timeList.length > 0 ? timeList.map((time) => (
                                                 <Button
                                                     key={time}
                                                     variant={selectedTime === time ? "default" : "outline"}
@@ -235,7 +252,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                                                 >
                                                     {time}
                                                 </Button>
-                                            ))}
+                                            )) : (<p className="text-xs">
+                                                Não há horários disponiveis para este dia.
+                                            </p>
+                                            )}
                                         </div>
                                     )}
 
